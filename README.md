@@ -41,10 +41,10 @@ as the openers attempt to construct absolute pathnames to find the file.
 If not given, "r" is the default.
 * `context` is an optional hint to be used by the openers. Currently, the
 following contexts are supported:
-** nil - the default context
-** "config" - this is a configuration file 
-** "cache" - a runtime cache file
-Some openers may operate only on specific contexts (eg, `datafile.openers.unix_config`).
+  * nil - the default context
+  * "config" - this is a configuration file 
+  * "cache" - a runtime cache file
+  Some openers may operate only on specific contexts (eg, `datafile.openers.unix_config`).
 
 If successful, returns two arguments: the open file handle and its pathname.
 If failed, returns nil and an error message.
