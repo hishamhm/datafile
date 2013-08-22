@@ -3,9 +3,13 @@
 -- datafile module for modules installed with LuaRocks
 local luarocks = {}
 
-local util = require("datafile.util")
-local path = require("luarocks.path")
+local ok, path = pcall(require, "luarocks.path")
+if not ok then
+   -- LuaRocks not found, bail out!
+   return {}
+end
 local manif_core = require("luarocks.manif_core")
+local util = require("datafile.util")
 
 function luarocks.opener(file, mode, context)
    local info = debug.getinfo(3, "S")

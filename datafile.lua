@@ -16,7 +16,9 @@ for i, opener in ipairs(openers) do
    local ok, mod = pcall(require, opener)
    print(ok, mod)
    if ok then
-      table.insert(datafile.openers, mod.opener)
+      if mod.opener then
+         table.insert(datafile.openers, mod.opener)
+      end
    end
 end
 
