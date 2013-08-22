@@ -44,6 +44,7 @@ following contexts are supported:
   * nil - the default context
   * "config" - this is a configuration file 
   * "cache" - a runtime cache file
+
 Some openers may operate only on specific contexts (eg, `datafile.openers.unix_config`).
 
 If successful, returns two arguments: the open file handle and its pathname.
