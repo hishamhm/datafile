@@ -31,7 +31,7 @@ function datafile.open(file, mode, context)
    local tried = {}
    for _, opener in ipairs(datafile.openers) do
       print(opener)
-      local file, path = opener(file, mode, context)
+      local file, path = opener(file, mode or "r", context)
       if file then
          return file, path
       elseif path then
