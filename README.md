@@ -26,8 +26,8 @@ of the running module (only loaded if LuaRocks is detected).
 * `datafile.openers.caller`: tries to find the file based on the path of
 the caller script.
 * `datafile.openers.xdg`: follows the [freedesktop.org XDG Base Directory Specification](-- http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-* `datafile.unix_config`: tries traditional Unix paths for config files
-(/etc and dotfiles at the home dir)
+* `datafile.openers.unix_config`: tries traditional Unix paths for config files
+(/etc and dotfiles at the home dir) -- this is an example of a platform-specific opener.
 
 ## API
 
