@@ -56,3 +56,10 @@ A shorthand function that just returns the pathname for a file.
 It works by trying to open the file with `datafile.open` and if
 successful, closes it and returns the path.
 
+##### To-do
+
+* More openers (Windows? Mac?)
+* Testing
+
+Feedback, pull requests, criticism, contributions, etc. are welcome!
+
