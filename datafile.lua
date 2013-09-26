@@ -14,7 +14,6 @@ local openers = {
 -- Install openers, if present
 for i, opener in ipairs(openers) do
    local ok, mod = pcall(require, opener)
-   print(ok, mod)
    if ok then
       if mod.opener then
          table.insert(datafile.openers, mod.opener)
@@ -30,7 +29,6 @@ end)
 function datafile.open(file, mode, context)
    local tried = {}
    for _, opener in ipairs(datafile.openers) do
-      print(opener)
       local file, path = opener(file, mode or "r", context)
       if file then
          return file, path
