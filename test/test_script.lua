@@ -3,7 +3,7 @@
 local test_module = require("test_module")
 local datafile = require("datafile")
 
-local fd = datafile.open("resources/greeting.txt")
+local fd = assert(datafile.open("resources/greeting.txt"))
 local reply = fd:read("*a")
 fd:close()
 
