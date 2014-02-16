@@ -6,6 +6,10 @@ source = {
    dir = "datafile/test",
 }
 
+dependencies = {
+   "datafile",
+}
+
 build = {
    type = "builtin",
    modules = {
