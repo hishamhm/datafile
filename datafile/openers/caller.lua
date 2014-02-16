@@ -6,19 +6,19 @@ local caller = {}
 local util = require("datafile.util")
 
 function caller.opener(file, mode, context)
-   local info = debug.getinfo(3, "S")
-   print(info.source)
-   if info.source:match("^@") then
+   local level, source = util.stacklevel()
+   if not level then return nil, source end
+   if source:match("^@") then
       -- Start with a reasonable guess if it's a well-installed module on Unix...
-      local prefix, luaver, modpath = info.source:match("(.*)/share/lua/([^/]+)/.*")
+      local prefix, luaver, modpath = source:match("(.*)/share/lua/([^/]+)/.*")
       local dirs = {}
       if prefix and luaver and modpath then
          table.insert(dirs, prefix .. "/share/lua/" .. luaver)
          table.insert(dirs, prefix .. "/lib/lua/" .. luaver)
       end
       -- ...then try all parent dirs of module.
-      local dirs = {}
-      local prefix = info.source
+      dirs = {}
+      prefix = source
       while true do
          prefix = prefix:match("(.+)/+[^/]*")
          if not prefix then break end

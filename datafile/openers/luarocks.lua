@@ -12,11 +12,12 @@ local manif_core = require("luarocks.manif_core")
 local util = require("datafile.util")
 
 function luarocks.opener(file, mode, context)
-   local info = debug.getinfo(4, "S")
-   if info.source:match("^@") then
-      local prefix, luaver, modpath = info.source:match("@(.*)/share/lua/([^/]*)/(.*)")
+   local level, source = util.stacklevel()
+   if not level then return nil, source end
+   if source:match("^@") then
+      local prefix, luaver, modpath = source:match("@(.*)/share/lua/([^/]*)/(.*)")
       if prefix and luaver and modpath then
-         local modname = path.path_to_module(modpath)
+         local modname = path.path_to_module(modpath):gsub("\\","."):gsub("/",".")
          local rocks_dir = prefix.."/lib/luarocks/rocks"
          local manifest, err = manif_core.load_local_manifest(rocks_dir)
          if not manifest then
@@ -48,7 +49,7 @@ function luarocks.opener(file, mode, context)
          return util.try_dirs(dirs, file, mode)
       end
    end
-   return nil, "could not recognize "..info.source.." as a LuaRocks module"
+   return nil, "could not recognize "..source.." as a LuaRocks module"
 end
 
 return luarocks
