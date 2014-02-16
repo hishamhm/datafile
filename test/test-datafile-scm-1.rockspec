@@ -17,7 +17,7 @@ build = {
    },
    install = {
       bin = {
-         "test_script",
+         test_script = "test_script.lua",
       }
    },
    copy_directories = {
