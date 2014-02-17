@@ -14,6 +14,7 @@ local util = require("datafile.util")
 function luarocks.opener(file, mode, context)
    local level, source = util.stacklevel()
    if not level then return nil, source end
+   source = source:gsub("\\", "/")
    if source:match("^@") then
       local prefix, luaver, modpath = source:match("@(.*)/share/lua/([^/]*)/(.*)")
       if prefix and luaver and modpath then
