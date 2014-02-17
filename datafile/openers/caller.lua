@@ -8,6 +8,7 @@ local util = require("datafile.util")
 function caller.opener(file, mode, context)
    local level, source = util.stacklevel()
    if not level then return nil, source end
+   source = source:gsub("\\", "/")
    if source:match("^@") then
       source = source:sub(2)
       -- Start with a reasonable guess if it's a well-installed module on Unix...
