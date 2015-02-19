@@ -50,5 +50,5 @@ function datafile.path(file, mode, context)
    return nil, path
 end
 
-return setmetatable(datafile, { __call = function(self, ...) return self.open(...) end } )
+return datafile
 
