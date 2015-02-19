@@ -31,13 +31,12 @@ build = {
    platforms = {
       unix = {
          modules = {
-            ["datafile.openers.unix_config"] = "datafile/openers/unix_config.lua",
+            ["datafile.openers.unix"] = "datafile/openers/unix.lua",
          }
       },
       windows = {
          modules = {
-            ["datafile.openers.win_config"] = "datafile/openers/win_config.lua",
-            ["datafile.openers.win_data"] = "datafile/openers/win_data.lua",
+            ["datafile.openers.windows"] = "datafile/openers/windows.lua",
          }
       },
    }

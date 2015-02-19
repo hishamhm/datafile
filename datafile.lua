@@ -8,9 +8,8 @@ local openers = {
    "datafile.openers.luarocks",
    "datafile.openers.caller",
    "datafile.openers.xdg",
-   "datafile.openers.unix_config",
-   "datafile.openers.win_config",
-   "datafile.openers.win_data",
+   "datafile.openers.unix",
+   "datafile.openers.windows",
 }
 
 -- Install openers, if present

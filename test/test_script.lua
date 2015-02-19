@@ -12,3 +12,10 @@ print(reply)
 
 test_module.yo()
 test_child.yo()
+
+print("The next one will fail:")
+local fderr, err = datafile.open("resources/nonexistant.txt")
+assert(not fderr)
+if err then
+   print(err)
+end
