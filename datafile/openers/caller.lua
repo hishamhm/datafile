@@ -17,14 +17,37 @@ function caller.opener(file, mode, context)
       if prefix and luaver and modpath then
          table.insert(dirs, prefix .. "/share/lua/" .. luaver)
          table.insert(dirs, prefix .. "/lib/lua/" .. luaver)
+         if context == "config" then
+            table.insert(dirs, prefix .. "/etc/")
+         else
+            table.insert(dirs, prefix .. "/share/")
+         end
       end
-      -- ...then try all parent dirs of module.
-      dirs = {}
-      prefix = source
+      -- Try to figure out how many levels of the pathname belong to the module.
+      local no_extension = source:match("(.*)%.[^.]*$")
+      prefix = no_extension or source
+      local suffix = ""
+      local mod
+      local dots = 0
+      local added = false
       while true do
-         prefix = prefix:match("(.+)/+[^/]*")
+         prefix, mod = prefix:match("^(.+)/([^/]+)$")
          if not prefix then break end
-         table.insert(dirs, prefix)
+         mod = mod..suffix
+         if package.loaded[mod] then
+            table.insert(dirs, prefix)
+            added = true
+            break
+         end
+         suffix = "."..mod
+         dots = dots + 1
+      end
+      -- Finally, the exact location of the module.
+      if dots > 0 or not added then
+         local sourcedir = source:match("^(.+)/([^/]+)$")
+         if sourcedir then
+            table.insert(dirs, sourcedir)
+         end
       end
       return util.try_dirs(dirs, file, mode)
    end
