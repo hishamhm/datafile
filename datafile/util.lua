@@ -6,8 +6,8 @@ function util.try_dirs(dirs, file, mode, noslash)
    local tried = {}
    for _, dir in ipairs(dirs) do
       local path = (dir..(noslash and "" or "/")..file):gsub("/+", "/")
-      local file = io.open(path, mode)
-      if file then return file, path end
+      local fd = io.open(path, mode)
+      if fd then return fd, path end
       tried[#tried+1] = "no file '"..path.."'"
    end
    return nil, table.concat(tried, "\n")
@@ -26,7 +26,7 @@ function util.stacklevel()
       end
    end
    if not info then
-      return nil, "could not determine the code file on the callstack to look up as a luarocks module"
+      return nil, "could not determine the code file on the callstack to look up"
    else
       return level - 1, info.source  -- use -1 to substract the call to this function
    end
