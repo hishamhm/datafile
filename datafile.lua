@@ -9,6 +9,8 @@ local openers = {
    "datafile.openers.caller",
    "datafile.openers.xdg",
    "datafile.openers.unix_config",
+   "datafile.openers.win_config",
+   "datafile.openers.win_data",
 }
 
 -- Install openers, if present
@@ -48,5 +50,5 @@ function datafile.path(file, mode, context)
    return nil, path
 end
 
-return datafile
+return setmetatable(datafile, { __call = function(self, ...) return self.open(...) end } )
 
