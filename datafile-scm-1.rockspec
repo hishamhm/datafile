@@ -33,6 +33,12 @@ build = {
          modules = {
             ["datafile.openers.unix_config"] = "datafile/openers/unix_config.lua",
          }
-      }
+      },
+      windows = {
+         modules = {
+            ["datafile.openers.win_config"] = "datafile/openers/win_config.lua",
+            ["datafile.openers.win_data"] = "datafile/openers/win_data.lua",
+         }
+      },
    }
 }

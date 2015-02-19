@@ -9,6 +9,8 @@ Example usage:
 local datafile = require("datafile")
 
 local my_template = datafile.open("myapp/my_template.txt", "r")
+-- or as a shortcut
+local my_template = datafile("myapp/my_template.txt", "r")
 ```
 
 This will try to find and open `myapp/my_template.txt` in a series
@@ -28,6 +30,10 @@ the caller script.
 * `datafile.openers.xdg`: follows the [freedesktop.org XDG Base Directory Specification](-- http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 * `datafile.openers.unix_config`: tries traditional Unix paths for config files
 (/etc and dotfiles at the home dir) -- this is an example of a platform-specific opener.
+* `datafile.openers.win_config`: tries traditional Windows paths for config files. Tries user first, then system wide. It will only handle the context 'config'.
+* `datafile.openers.win_data`: tries traditional Windows paths for data/user files. Tries user first, then public.
+
+Note: when installing trough LuaRocks, only files for the relevant platform will be installed
 
 ## API
 
@@ -58,7 +64,7 @@ successful, closes it and returns the path.
 
 ## To-do
 
-* More openers (Windows? Mac?)
+* More openers (Mac?)
 * Testing
 
 Feedback, pull requests, criticism, contributions, etc. are welcome!
