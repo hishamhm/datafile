@@ -11,11 +11,11 @@ local windows = {}
 
 local util = require("datafile.util")
 
-function windows.opener(file, mode, _)
+function windows.opener(file, mode, context)
    local dirs = {}
    if context == "config" then
       dirs[#dirs+1] = os.getenv("APPDATA")
-      dirs[#dirs+1] = (os.getenv("PROGRAMDATA") or os.getenv("ALLUSERSPROFILE")) }
+      dirs[#dirs+1] = (os.getenv("PROGRAMDATA") or os.getenv("ALLUSERSPROFILE"))
    end
    dirs[#dirs+1] = os.getenv("USERPROFILE")
    dirs[#dirs+1] = os.getenv("PUBLIC")
