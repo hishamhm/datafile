@@ -22,9 +22,9 @@ function util.try_dirs(dirs, file, mode)
          path = (dir..sep..file)
       end
       path = path:gsub(sep.."+", sep)
-      local fd = io.open(path, mode)
+      local fd, err = io.open(path, mode)
       if fd then return fd, path end
-      tried[#tried+1] = "no file '"..path.."'"
+      tried[#tried+1] = "can't open "..err
    end
    return nil, table.concat(tried, "\n")
 end
