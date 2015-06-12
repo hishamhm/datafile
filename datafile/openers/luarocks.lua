@@ -19,10 +19,10 @@ function luarocks.opener(file, mode, context)
       local prefix, luaver, modpath = source:match("@(.*)/share/lua/([^/]*)/(.*)")
       if prefix and luaver and modpath then
          local modname = path.path_to_module(modpath):gsub("\\","."):gsub("/",".")
-         local rocks_dir = prefix.."/lib/luarocks/rocks"
+         local rocks_dir = prefix.."/lib/luarocks/rocks-"..luaver
          local manifest, err = manif_core.load_local_manifest(rocks_dir)
-         if not manifest then
-            rocks_dir = prefix.."/lib/luarocks/rocks-"..luaver
+         if not manifest then -- look for generic rocks_dir
+            rocks_dir = prefix.."/lib/luarocks/rocks"
             manifest, err = manif_core.load_local_manifest(rocks_dir)
          end
          if not manifest then
