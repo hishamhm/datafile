@@ -1,5 +1,5 @@
 package = "datafile"
-version = "scm-1"
+version = "0.2-1"
 
 source = {
    url = "git://github.com/hishamhm/datafile.git",
