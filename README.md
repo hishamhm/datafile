@@ -9,8 +9,6 @@ Example usage:
 local datafile = require("datafile")
 
 local my_template = datafile.open("myapp/my_template.txt", "r")
--- or as a shortcut
-local my_template = datafile("myapp/my_template.txt", "r")
 ```
 
 This will try to find and open `myapp/my_template.txt` in a series
