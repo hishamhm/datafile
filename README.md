@@ -28,12 +28,12 @@ of the running module (only loaded if LuaRocks is detected).
 * `datafile.openers.caller`: tries to find the file based on the path of
 the caller script.
 * `datafile.openers.xdg`: follows the [freedesktop.org XDG Base Directory Specification](-- http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-* `datafile.openers.unix_config`: tries traditional Unix paths for config files
+* `datafile.openers.unix`: tries traditional Unix paths for data and config files
 (/etc and dotfiles at the home dir) -- this is an example of a platform-specific opener.
-* `datafile.openers.win_config`: tries traditional Windows paths for config files. Tries user first, then system wide. It will only handle the context 'config'.
-* `datafile.openers.win_data`: tries traditional Windows paths for data/user files. Tries user first, then public.
+* `datafile.openers.windows`: tries traditional Windows paths for user and config files. For config files, it tries user configuration first, then system wide.
+For data/user files, it tries the user directory first, then the public directory.
 
-Note: when installing trough LuaRocks, only files for the relevant platform will be installed
+Note: when installing trough LuaRocks, only files for the relevant platform will be installed.
 
 ## API
 
@@ -51,20 +51,24 @@ following contexts are supported:
   * "config" - this is a configuration file 
   * "cache" - a runtime cache file
 
-Some openers may operate only on specific contexts (eg, `datafile.openers.unix_config`).
+Some openers may operate only on specific contexts, or ignore the context altogether.
 
 If successful, returns two arguments: the open file handle and its pathname.
 If failed, returns nil and an error message.
 
 ##### datafile.path(file, \[mode\], \[context\])
 
-A shorthand function that just returns the pathname for a file.
-It works by trying to open the file with `datafile.open` and if
-successful, closes it and returns the path.
+A shorthand function that looks for a file and returns its pathname.
+The return pathname may be relative.
+
+The input arguments are the same as for `datafile.open`.
+
+If successful, returns one argument: the pathname, which may be relative.
+If failed, returns nil and an error message.
 
 ## To-do
 
-* More openers (Mac?)
+* More openers (any Mac-specific paths?)
 * Testing
 
 Feedback, pull requests, criticism, contributions, etc. are welcome!
