@@ -4,6 +4,7 @@ local test_module = require("test_module")
 local test_child = require("test_grandparent.test_parent.test_child")
 local datafile = require("datafile")
 
+print("Path:", datafile.path("resources/greeting.txt"))
 local fd = assert(datafile.open("resources/greeting.txt"))
 local reply = fd:read("*a")
 fd:close()
