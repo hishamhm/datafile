@@ -4,8 +4,6 @@
 -- http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 local xdg = {}
 
-local util = require("datafile.util")
-
 local function split(var)
    local list = {}
    for entry in var:gmatch("([^:]+)") do
@@ -29,18 +27,14 @@ table.insert(XDG_CONFIG_DIRS, 1, XDG_CONFIG_HOME)
 
 local XDG_CACHE_DIRS = { XDG_CACHE_HOME, XDG_RUNTIME_DIR }
 
-function xdg.opener(file, mode, context)
-   if not file then
-      return nil, "missing argument"
-   end
-   mode = mode or "r"
+function xdg.get_dirs(context)
    local dirs = XDG_DATA_DIRS
    if context == "config" then
       dirs = XDG_CONFIG_DIRS
    elseif context == "cache" then
       dirs = XDG_CACHE_DIRS
    end
-   return util.try_dirs(dirs, file, mode)
+   return dirs
 end
 
 return xdg

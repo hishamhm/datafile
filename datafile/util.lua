@@ -4,15 +4,13 @@ local util = {}
 
 -- cache separator
 local sep
+if (package.config and package.config:sub(1,1) == "\\") or package.path:match("\\") then
+   sep = "\\"
+else
+   sep = "/"
+end
 
-function util.try_dirs(dirs, file, mode)
-   if not sep then
-      if (package.config and package.config:sub(1,1) == "\\") or package.path:match("\\") then
-         sep = "\\"
-      else
-         sep = "/"
-      end
-   end
+function util.try_dirs(dirs, file, mode, open_fn)
    local tried = {}
    for _, dir in ipairs(dirs) do
       local path
@@ -22,7 +20,7 @@ function util.try_dirs(dirs, file, mode)
          path = (dir..sep..file)
       end
       path = path:gsub(sep.."+", sep)
-      local fd, err = io.open(path, mode)
+      local fd, err = (open_fn or io.open)(path, mode)
       if fd then return fd, path end
       tried[#tried+1] = "can't open "..err
    end

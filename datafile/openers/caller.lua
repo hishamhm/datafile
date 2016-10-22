@@ -5,7 +5,7 @@ local caller = {}
 
 local util = require("datafile.util")
 
-function caller.opener(file, mode, _)
+function caller.get_dirs()
    local level, source = util.stacklevel()
    if not level then return nil, source end
    source = source:gsub("\\", "/")
@@ -14,7 +14,7 @@ function caller.opener(file, mode, _)
    source = source:sub(2)
    -- Try to figure out how many levels of the pathname belong to the module.
    local no_extension = source:match("(.*)%.[^.]*$")
-   prefix = no_extension or source
+   local prefix = no_extension or source
    local suffix = ""
    local mod
    local dots = 0
@@ -38,7 +38,7 @@ function caller.opener(file, mode, _)
          table.insert(dirs, sourcedir)
       end
    end
-   return util.try_dirs(dirs, file, mode)
+   return dirs
 end
 
 return caller

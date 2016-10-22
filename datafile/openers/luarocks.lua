@@ -8,10 +8,14 @@ if not ok then
    -- LuaRocks not found, bail out!
    return {}
 end
-local manif_core = require("luarocks.manif_core")
+local manif_core
+ok, manif_core = pcall(require, "luarocks.manif_core") -- LuaRocks 2
+if not ok then
+   manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
+end
 local util = require("datafile.util")
 
-function luarocks.opener(file, mode, context)
+function luarocks.get_dirs()
    local level, source = util.stacklevel()
    if not level then return nil, source end
    source = source:gsub("\\", "/")
@@ -47,7 +51,18 @@ function luarocks.opener(file, mode, context)
                table.insert(dirs, prefix .. "/lib/luarocks/rocks-"..luaver.."/" .. provider)
             end
          end
-         return util.try_dirs(dirs, file, mode)
+         return dirs
+      else
+         local rockdir, prefix, luaver = source:match("@((.*)/lib/luarocks/rocks%-?([^/]*)/[^/]*/[^/]*)/.*$")
+         if prefix and luaver and rockdir then
+            luaver = luaver or _VERSION:match(" ([^ ]+)$")
+            local dirs = {
+               prefix .. "/share/lua/" .. luaver,
+               prefix .. "/lib/lua/" .. luaver,
+               rockdir
+            }
+            return dirs
+         end
       end
    end
    return nil, "could not recognize "..source.." as a LuaRocks module"

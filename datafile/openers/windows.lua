@@ -9,9 +9,7 @@
 
 local windows = {}
 
-local util = require("datafile.util")
-
-function windows.opener(file, mode, context)
+function windows.get_dirs(context)
    local dirs = {}
    if context == "config" then
       dirs[#dirs+1] = os.getenv("APPDATA")
@@ -19,7 +17,7 @@ function windows.opener(file, mode, context)
    end
    dirs[#dirs+1] = os.getenv("USERPROFILE")
    dirs[#dirs+1] = os.getenv("PUBLIC")
-   return util.try_dirs(dirs, file, mode)
+   return dirs
 end
 
 return windows
