@@ -55,7 +55,7 @@ function luarocks.get_dirs()
       else
          local rockdir, prefix, luaver = source:match("@((.*)/lib/luarocks/rocks%-?([^/]*)/[^/]*/[^/]*)/.*$")
          if prefix and luaver and rockdir then
-            luaver = luaver or _VERSION:match(" ([^ ]+)$")
+            luaver = luaver ~= "" and luaver or _VERSION:match(" ([^ ]+)$")
             local dirs = {
                prefix .. "/share/lua/" .. luaver,
                prefix .. "/lib/lua/" .. luaver,
