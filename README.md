@@ -1,6 +1,8 @@
 datafile
 ========
 
+[![Build Status](https://travis-ci.org/hishamhm/datafile.svg?branch=master)](https://travis-ci.org/hishamhm/datafile)
+
 A Lua library for handling paths when loading data files 
 
 Example usage:
