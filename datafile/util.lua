@@ -36,7 +36,7 @@ function util.stacklevel()
    local src_level
    while true do
       local info = debug.getinfo(level, "Sn")
-      if not info then 
+      if not info then
          break
       end
       if info.source:match("datafile.lua$") then

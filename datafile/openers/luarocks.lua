@@ -33,7 +33,7 @@ function luarocks.get_dirs()
             return nil, "could not open LuaRocks manifest for "..prefix
          end
          local providers = manifest.modules[modname]
-   
+
          -- try versioned module names
          while not providers do
             local strip = modname:match("(.*)_[^_]+")
@@ -44,7 +44,7 @@ function luarocks.get_dirs()
             prefix .. "/share/lua/" .. luaver,
             prefix .. "/lib/lua/" .. luaver,
          }
-         
+
          if providers then
             for _, provider in ipairs(providers) do
                table.insert(dirs, prefix .. "/lib/luarocks/rocks/" .. provider)
