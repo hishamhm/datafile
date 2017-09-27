@@ -2,6 +2,7 @@ datafile
 ========
 
 [![Build Status](https://travis-ci.org/hishamhm/datafile.svg?branch=master)](https://travis-ci.org/hishamhm/datafile)
+[![Coverage Status](https://coveralls.io/repos/github/hishamhm/datafile/badge.svg?branch=master)](https://coveralls.io/github/hishamhm/datafile?branch=master)
 
 A Lua library for handling paths when loading data files 
 

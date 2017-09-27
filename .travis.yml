@@ -19,6 +19,7 @@ before_install:
 
 install:
   - luarocks install luacheck
+  - luarocks install luacov-coveralls
 
 script:
   - luacheck --codes --std=max datafile.lua datafile
@@ -26,6 +27,9 @@ script:
   - lua test/test_script.lua
 
 after_success:
+  - export LUA_PATH=";;test/?.lua"
+  - lua -lluacov test/test_script.lua
+  - luacov-coveralls -e /HERE/
 
 notifications:
   email:
