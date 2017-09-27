@@ -24,16 +24,16 @@ function luarocks.get_dirs()
       if prefix and luaver and modpath then
          local modname = path.path_to_module(modpath):gsub("\\","."):gsub("/",".")
          local rocks_dir = prefix.."/lib/luarocks/rocks-"..luaver
-         local manifest, err = manif_core.load_local_manifest(rocks_dir)
+         local manifest = manif_core.load_local_manifest(rocks_dir)
          if not manifest then -- look for generic rocks_dir
             rocks_dir = prefix.."/lib/luarocks/rocks"
-            manifest, err = manif_core.load_local_manifest(rocks_dir)
+            manifest = manif_core.load_local_manifest(rocks_dir)
          end
          if not manifest then
             return nil, "could not open LuaRocks manifest for "..prefix
          end
          local providers = manifest.modules[modname]
-   
+
          -- try versioned module names
          while not providers do
             local strip = modname:match("(.*)_[^_]+")
@@ -44,7 +44,7 @@ function luarocks.get_dirs()
             prefix .. "/share/lua/" .. luaver,
             prefix .. "/lib/lua/" .. luaver,
          }
-         
+
          if providers then
             for _, provider in ipairs(providers) do
                table.insert(dirs, prefix .. "/lib/luarocks/rocks/" .. provider)
@@ -53,7 +53,8 @@ function luarocks.get_dirs()
          end
          return dirs
       else
-         local rockdir, prefix, luaver = source:match("@((.*)/lib/luarocks/rocks%-?([^/]*)/[^/]*/[^/]*)/.*$")
+         local rockdir
+         rockdir, prefix, luaver = source:match("@((.*)/lib/luarocks/rocks%-?([^/]*)/[^/]*/[^/]*)/.*$")
          if prefix and luaver and rockdir then
             luaver = luaver ~= "" and luaver or _VERSION:match(" ([^ ]+)$")
             local dirs = {
