@@ -28,6 +28,9 @@ script:
 
 after_success:
   - export LUA_PATH=";;test/?.lua"
+  - luarocks install test/test-datafile-scm-1.rockspec
+  - lua -lluacov test/test_script.lua
+  - luarocks remove test-datafile
   - lua -lluacov test/test_script.lua
   - luacov-coveralls -e /HERE/
 
