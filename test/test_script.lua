@@ -35,15 +35,15 @@ end
 
 assert(test_missing())
 
+local function run(...)
+   local ok = os.execute(...)
+   assert(ok == 0 or ok == true)
+end
+
 local function test_permission_fail()
    -- Unix only
    if not package.config:match("/") then
       return
-   end
-   
-   local function run(...)
-      local ok = os.execute(...)
-      assert(ok == 0 or ok == true)
    end
 
    print()
@@ -74,3 +74,26 @@ end
 
 assert(test_permission_fail())
 
+local function test_config()
+   -- Unix only
+   if not package.config:match("/") then
+      return
+   end
+
+   print()
+   local confname = os.getenv("HOME").."/.config"
+   local dirname = "test_datafile"
+   local filename = "/file.txt"
+   run("mkdir -p " .. confname .. "/" .. dirname)
+   run("touch " .. confname .. "/" .. dirname .. "/" ..filename)
+   local fd, err = datafile.open(dirname .. "/" .. filename, "r", "config")
+   print(err)
+   assert(fd)
+   fd:close()
+   run("rm -f " .. confname .. "/" .. dirname .. "/" ..filename)
+   run("rmdir " .. confname .. "/" .. dirname)
+   print("OK")
+   return true
+end
+
+assert(test_config())
