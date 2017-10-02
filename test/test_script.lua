@@ -43,7 +43,7 @@ end
 local function test_permission_fail()
    -- Unix only
    if not package.config:match("/") then
-      return
+      return true
    end
 
    print()
@@ -77,7 +77,7 @@ assert(test_permission_fail())
 local function test_config()
    -- Unix only
    if not package.config:match("/") then
-      return
+      return true
    end
 
    print()
