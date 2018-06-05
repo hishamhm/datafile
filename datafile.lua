@@ -55,12 +55,12 @@ local function find_file(file, mode)
       if code == 13 then
          -- Permission denied, but it exists
          if mode:match("w") then
-            return nil, err
+            return nil, file .. ": " .. err
          else
             return true, file
          end
       end
-      return nil, err
+      return nil, file .. ": " .. err
    end
    return true, file
 end
