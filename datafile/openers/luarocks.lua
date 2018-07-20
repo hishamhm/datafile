@@ -8,11 +8,14 @@ if not ok then
    -- LuaRocks not found, bail out!
    return {}
 end
-local manif_core
+local manif_core, _
 ok, manif_core = pcall(require, "luarocks.manif_core") -- LuaRocks 2
 if not ok then
-   manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
+   _, manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
 end
+local load_local_manifest = manif_core.load_local_manifest  -- LuaRocks 2
+load_local_manifest = load_local_manifest or manif_core.fast_load_local_manifest  --LuaRocks 3
+
 local util = require("datafile.util")
 
 function luarocks.get_dirs()
@@ -24,10 +27,10 @@ function luarocks.get_dirs()
       if prefix and luaver and modpath then
          local modname = path.path_to_module(modpath):gsub("\\","."):gsub("/",".")
          local rocks_dir = prefix.."/lib/luarocks/rocks-"..luaver
-         local manifest = manif_core.load_local_manifest(rocks_dir)
+         local manifest = load_local_manifest(rocks_dir)
          if not manifest then -- look for generic rocks_dir
             rocks_dir = prefix.."/lib/luarocks/rocks"
-            manifest = manif_core.load_local_manifest(rocks_dir)
+            manifest = load_local_manifest(rocks_dir)
          end
          if not manifest then
             return nil, "could not open LuaRocks manifest for "..prefix
