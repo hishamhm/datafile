@@ -4,7 +4,7 @@ datafile
 [![Build Status](https://travis-ci.org/hishamhm/datafile.svg?branch=master)](https://travis-ci.org/hishamhm/datafile)
 [![Coverage Status](https://coveralls.io/repos/github/hishamhm/datafile/badge.svg?branch=master)](https://coveralls.io/github/hishamhm/datafile?branch=master)
 
-A Lua library for handling paths when loading data files 
+A Lua library for handling paths when loading data files
 
 Example usage:
 
@@ -49,7 +49,7 @@ If not given, "r" is the default.
 * `context` is an optional hint to be used by the openers. Currently, the
 following contexts are supported:
   * nil - the default context
-  * "config" - this is a configuration file 
+  * "config" - this is a configuration file
   * "cache" - a runtime cache file
 
 Some openers may operate only on specific contexts, or ignore the context altogether.
@@ -66,6 +66,32 @@ The input arguments are the same as for `datafile.open`.
 
 If successful, returns one argument: the pathname, which may be relative.
 If failed, returns nil and an error message.
+
+## Known issues
+
+#### Datafile does not work in command line scripts
+
+A command line script does not have enough information since it is located in a
+`/bin` directory. To mitigate this create a wrapper module in your project
+like this:
+
+```lua
+local datafile = require("datafile")
+
+local unpack   = unpack or table.unpack
+local pack     = table.pack or function(...) return { n = select('#', ...), ... } end
+
+return {
+  open = function(...)
+    -- datafile needs a stack entry, so cannot use a tailcall here, hence pack/unpack
+    local result = pack(datafile.open(...))
+    return unpack(result)
+  end
+}
+```
+
+Save this module for example as `mymodule/datafile.lua`. Now you can use
+`local datafile = require("mymodule.datafile")`.
 
 ## To-do
 
