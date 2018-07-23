@@ -65,6 +65,27 @@ function luarocks.get_dirs()
             return dirs
          end
       end
+   elseif package.loaded["luarocks.loader"] then
+      local loader = package.loaded["luarocks.loader"]
+      local prefix = arg[0]:match("(.*)[\\/]bin[\\/][^\\/]+$")
+      local luaver = _VERSION:sub(5)
+      if prefix then
+         local keys = {}
+         for k, _ in pairs(loader.context) do
+            table.insert(keys, k)
+         end
+         table.sort(keys)
+         local dirs = {
+               prefix .. "/share/lua/" .. luaver,
+               prefix .. "/lib/lua/" .. luaver,
+         }
+         for _, k in ipairs(keys) do
+            local v = loader.context[k]
+            table.insert(dirs, prefix.."/lib/luarocks/rocks-"..luaver.."/"..k.."/"..v)
+            table.insert(dirs, prefix.."/lib/luarocks/rocks/"..k.."/"..v)
+         end
+         return dirs
+      end
    end
    return nil, "could not recognize "..source.." as a LuaRocks module"
 end

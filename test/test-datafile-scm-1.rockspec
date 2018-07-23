@@ -19,6 +19,7 @@ build = {
    install = {
       bin = {
          test_script = "test_script.lua",
+         test_load_by_context = "test_load_by_context.lua",
       }
    },
    copy_directories = {
