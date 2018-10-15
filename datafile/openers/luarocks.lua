@@ -11,8 +11,17 @@ end
 local manif_core, _
 ok, manif_core = pcall(require, "luarocks.manif_core") -- LuaRocks 2
 if not ok then
-   _, manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
+   local pok, cfg = pcall(require, "luarocks.core.cfg")
+   if pok then
+      pcall(cfg.init)
+      _, manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
+   end
 end
+if not manif_core then
+   -- LuaRocks not found, bail out!
+   return {}
+end
+
 local load_local_manifest = manif_core.load_local_manifest  -- LuaRocks 2
 load_local_manifest = load_local_manifest or manif_core.fast_load_local_manifest  --LuaRocks 3
 
