@@ -16,6 +16,26 @@ end
 local load_local_manifest = manif_core.load_local_manifest  -- LuaRocks 2
 load_local_manifest = load_local_manifest or manif_core.fast_load_local_manifest  --LuaRocks 3
 
+local cfg
+ok, cfg = pcall(require, "luarocks.cfg") -- LuaRocks 2
+if not ok then
+   _, cfg = pcall(require, "luarocks.core.cfg") -- LuaRocks 3
+end
+if cfg then
+   if not cfg.lua_extension then -- cfg not initialized
+      if cfg.init then
+         local cfg_ok, err = cfg.init()
+         if cfg_ok and cfg.init_package_paths then
+            cfg.init_package_paths()
+         end
+      end
+   end
+end
+if not (cfg and cfg.lua_extension) then
+   -- cfg still not initialized, bail out!
+   return {}
+end
+
 local util = require("datafile.util")
 
 function luarocks.get_dirs()
