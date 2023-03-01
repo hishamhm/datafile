@@ -52,7 +52,7 @@ end
 local function find_file(file, mode)
    local ok, err, code = os.rename(file, file)
    if not ok then
-      if code == 13 then
+      if code == 13 or code == 30 then
          -- Permission denied, but it exists
          if mode:match("w") then
             return nil, file .. ": " .. err
