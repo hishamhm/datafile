@@ -13,9 +13,9 @@ local function split(var)
 end
 
 local HOME = os.getenv("HOME")
-local XDG_DATA_HOME   = os.getenv("XDG_DATA_HOME")   or HOME.."/.local/share"
-local XDG_CONFIG_HOME = os.getenv("XDG_CONFIG_HOME") or HOME.."/.config"
-local XDG_CACHE_HOME  = os.getenv("XDG_CACHE_HOME")  or HOME.."/.cache"
+local XDG_DATA_HOME   = os.getenv("XDG_DATA_HOME")   or (HOME and HOME.."/.local/share")
+local XDG_CONFIG_HOME = os.getenv("XDG_CONFIG_HOME") or (HOME and HOME.."/.config")
+local XDG_CACHE_HOME  = os.getenv("XDG_CACHE_HOME")  or (HOME and HOME.."/.cache")
 local XDG_RUNTIME_DIR = os.getenv("XDG_RUNTIME_DIR")
 
 local XDG_DATA_DIRS = split(os.getenv("XDG_DATA_DIRS") or "/usr/local/share:/usr/share")

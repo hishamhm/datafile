@@ -27,11 +27,15 @@ function unix.get_dirs(context)
       end
    end
    if context == "config" then
-      table.insert(dirs, home.."/.config")
-      table.insert(dirs, home.."/.|") -- the pipe marker tells not to add a trailing slash
+      if home then
+         table.insert(dirs, home.."/.config")
+         table.insert(dirs, home.."/.|") -- the pipe marker tells not to add a trailing slash
+      end
       table.insert(dirs, "/etc/")
    elseif context == "cache" then
-      table.insert(dirs, home.."/.cache")
+      if home then
+         table.insert(dirs, home.."/.cache")
+      end
       table.insert(dirs, "/var/cache")
       table.insert(dirs, "/var/run")
       table.insert(dirs, "/var/lib")
