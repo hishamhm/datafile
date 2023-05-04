@@ -25,7 +25,9 @@ table.insert(XDG_DATA_DIRS, XDG_RUNTIME_DIR)
 local XDG_CONFIG_DIRS = split(os.getenv("XDG_CONFIG_DIRS") or "/etc/xdg")
 table.insert(XDG_CONFIG_DIRS, 1, XDG_CONFIG_HOME)
 
-local XDG_CACHE_DIRS = { XDG_CACHE_HOME, XDG_RUNTIME_DIR }
+local XDG_CACHE_DIRS = {}
+table.insert(XDG_CACHE_DIRS, XDG_CACHE_HOME)
+table.insert(XDG_CACHE_DIRS, XDG_RUNTIME_DIR)
 
 function xdg.get_dirs(context)
    local dirs = XDG_DATA_DIRS
