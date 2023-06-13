@@ -19,11 +19,15 @@ local XDG_CACHE_HOME  = os.getenv("XDG_CACHE_HOME")  or (HOME and HOME.."/.cache
 local XDG_RUNTIME_DIR = os.getenv("XDG_RUNTIME_DIR")
 
 local XDG_DATA_DIRS = split(os.getenv("XDG_DATA_DIRS") or "/usr/local/share:/usr/share")
-table.insert(XDG_DATA_DIRS, 1, XDG_DATA_HOME)
+if XDG_DATA_HOME then
+  table.insert(XDG_DATA_DIRS, 1, XDG_DATA_HOME)
+end
 table.insert(XDG_DATA_DIRS, XDG_RUNTIME_DIR)
 
 local XDG_CONFIG_DIRS = split(os.getenv("XDG_CONFIG_DIRS") or "/etc/xdg")
-table.insert(XDG_CONFIG_DIRS, 1, XDG_CONFIG_HOME)
+if XDG_CONFIG_HOME then
+  table.insert(XDG_CONFIG_DIRS, 1, XDG_CONFIG_HOME)
+end
 
 local XDG_CACHE_DIRS = {}
 table.insert(XDG_CACHE_DIRS, XDG_CACHE_HOME)
