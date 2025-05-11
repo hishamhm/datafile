@@ -67,7 +67,7 @@ end
 
 function datafile.path(file, mode, context)
    local fd, path = datafile.open(file, mode or "r", context, find_file)
-   if fd == true then
+   if fd then
       return path
    end
    return nil, path
