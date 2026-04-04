@@ -13,7 +13,9 @@ ok, manif_core = pcall(require, "luarocks.manif_core") -- LuaRocks 2
 if not ok then
    local pok, cfg = pcall(require, "luarocks.core.cfg")
    if pok then
-      pcall(cfg.init)
+      if not cfg.lua_extension then -- cfg not initialized
+         pcall(cfg.init)
+      end
       _, manif_core = pcall(require, "luarocks.core.manif") -- LuaRocks 3
    end
 end
