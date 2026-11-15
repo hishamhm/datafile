@@ -25,6 +25,7 @@ script:
   - luacheck --codes --std=max datafile.lua datafile
   - export LUA_PATH=";;test/?.lua"
   - lua test/test_script.lua
+  - lua test/test_neovim.lua
 
 after_success:
   - export LUA_PATH=";;test/?.lua"

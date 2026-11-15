@@ -26,6 +26,8 @@ A few default openers are included:
 
 * `datafile.openers.luarocks`: which tries to determine the LuaRocks context
 of the running module (only loaded if LuaRocks is detected).
+* `datafile.openers.neovim`: which looks files up on the Neovim runtime path
+(only loaded when running inside Neovim).
 * `datafile.openers.caller`: tries to find the file based on the path of
 the caller script.
 * `datafile.openers.xdg`: follows the [freedesktop.org XDG Base Directory Specification](-- http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
