@@ -25,6 +25,7 @@ build = {
       ["datafile"] = "datafile.lua",
       ["datafile.util"] = "datafile/util.lua",
       ["datafile.openers.luarocks"] = "datafile/openers/luarocks.lua",
+      ["datafile.openers.neovim"] = "datafile/openers/neovim.lua",
       ["datafile.openers.caller"] = "datafile/openers/caller.lua",
    },
    platforms = {

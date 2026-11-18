@@ -8,6 +8,7 @@ datafile.openers = {}
 
 local openers = {
    "datafile.openers.luarocks",
+   "datafile.openers.neovim",
    "datafile.openers.caller",
    "datafile.openers.xdg",
    "datafile.openers.unix",
