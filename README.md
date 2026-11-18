@@ -26,6 +26,8 @@ A few default openers are included:
 
 * `datafile.openers.luarocks`: which tries to determine the LuaRocks context
 of the running module (only loaded if LuaRocks is detected).
+* `datafile.openers.lux`: which tries to determine the Lux install tree of
+the running module (only loaded if `lux-lua` is available).
 * `datafile.openers.neovim`: which looks files up on the Neovim runtime path
 (only loaded when running inside Neovim).
 * `datafile.openers.caller`: tries to find the file based on the path of
