@@ -26,6 +26,7 @@ script:
   - export LUA_PATH=";;test/?.lua"
   - lua test/test_script.lua
   - lua test/test_neovim.lua
+  - lua test/test_custom_tree.lua
 
 after_success:
   - export LUA_PATH=";;test/?.lua"
